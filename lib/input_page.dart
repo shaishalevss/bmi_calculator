@@ -8,13 +8,11 @@ import 'constants.dart';
 enum GenderType { male, female }
 
 class InputPage extends StatefulWidget {
-
   @override
   _InputPageState createState() => _InputPageState();
 }
 
 class _InputPageState extends State<InputPage> {
-
   GenderType selectedGenderType;
   int height = 175;
 
@@ -56,30 +54,55 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             Expanded(
-              child: ReusableCard(kActiveCardColor, Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('HEIGHT', style: kLabelTextStyle,),Row(
+              child: ReusableCard(
+                  kActiveCardColor,
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
                     children: <Widget>[
-                      Text(height.toString(), style: kNumberTextStyle,), Text('cm', style: kLabelTextStyle,)
+                      Text(
+                        'HEIGHT',
+                        style: kLabelTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: <Widget>[
+                          Text(
+                            height.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Text(
+                            'cm',
+                            style: kLabelTextStyle,
+                          )
+                        ],
+                      ),
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 30.0),
+                          thumbColor: Color(0xFFEB1555),
+                          activeTrackColor: Colors.white,
+                          overlayColor: Color(0x29EB1555),
+                          inactiveTrackColor: Color(0xFF8D8E98),
+                        ),
+                        child: Slider(
+                          value: height.toDouble(),
+                          min: 120.0,
+                          max: 230.0,
+                          onChanged: (double newValue) {
+                            setState(() {
+                              height = newValue.round();
+                            });
+                          },
+                        ),
+                      )
                     ],
-                  ), Slider(
-                    value: height.toDouble(),
-                    min: 120.0,
-                    max: 230.0,
-                    activeColor: Color(0xFFEB1555),
-                    inactiveColor: Color(0xFF8D8E98),
-                    onChanged: (double newValue){
-                      setState(() {
-                        height = newValue.round();
-                      });
-                    },
-                  )
-                ],
-              ), null),
+                  ),
+                  null),
             ),
             Expanded(
               child: Row(
